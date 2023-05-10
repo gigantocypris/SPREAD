@@ -14,7 +14,7 @@ OUTPUT_DIR=/global/cfs/cdirs/m3562/users/vidyagan/p20231/common/results/processe
 
 mkdir -p $OUTPUT_DIR
 mkdir -p $OUTPUT_DIR/stdout
-srun -n 320 -c 2 dials.stills_process params_1.phil \
+srun -n 320 -c 2 dials.stills_process $MODULES/SPREAD/params_1.phil \
 output.output_dir=$OUTPUT_DIR \
 output.logging_dir=$OUTPUT_DIR/stdout  \
 input.glob=/global/cfs/cdirs/m3562/sf_bernina_data_p20231/assembled/$RUN_NUM/*.h5 \
