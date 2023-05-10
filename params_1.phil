@@ -1,0 +1,37 @@
+dispatch {
+  pre_import = True
+  hit_finder {
+    minimum_number_of_reflections = 40
+  }
+}
+input {
+  reference_geometry = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/geom/r0037_level0.expt"
+}
+spotfinder {
+  lookup {
+    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
+  }
+  threshold {
+    dispersion {
+      gain = 26.2
+    }
+  }
+}
+indexing {
+  known_symmetry {
+    space_group = "P 21 21 21"
+    unit_cell = 117.585 223.068 309.977 90 90 90
+  }
+  refinement_protocol {
+    d_min_start = 2.5
+  }
+}
+integration {
+  lookup {
+    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
+  }
+  summation {
+    detector_gain = 26.2
+  }
+}
+
