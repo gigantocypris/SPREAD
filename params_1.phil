@@ -9,7 +9,7 @@ input {
 }
 spotfinder {
   lookup {
-    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
+    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/until68.mask"
   }
   threshold {
     dispersion {
@@ -28,7 +28,7 @@ indexing {
 }
 integration {
   lookup {
-    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
+    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/until68.mask"
   }
   summation {
     detector_gain = 26.2
