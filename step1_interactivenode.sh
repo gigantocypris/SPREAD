@@ -1,7 +1,7 @@
 # salloc -N 1 --time=60 -C gpu -A m3562_g --qos=interactive --ntasks-per-gpu=8 --cpus-per-task=2
 
 RUN_NUM=080
-PHIL_FILE=params_1_69plus.phil
+PHIL_FILE=$MODULES/SPREAD/params_1_69plus.phil
 echo $RUN_NUM
 OUTPUT_DIR=/global/cfs/cdirs/m3562/users/vidyagan/p20231/common/results/processed_may_10_2023/interactive_r$RUN_NUM
 
