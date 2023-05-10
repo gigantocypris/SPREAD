@@ -5,7 +5,7 @@ dispatch {
   }
 }
 input {
-  reference_geometry = "/global/cfs/cdirs/m3562/users/brewster/fixup/fixed.expt"
+  reference_geometry = "/global/cfs/cdirs/m3562/users/dtchon/p20231/common/metrology1/refinement/level2/refined_level2.expt"
 }
 spotfinder {
   lookup {
@@ -33,4 +33,13 @@ integration {
   summation {
     detector_gain = 26.2
   }
+}
+radial_average {
+  enable = True
+  two_theta_low = 12.5
+  two_theta_high = 22.8
+  verbose = False
+  output_bins = False
+  show_plots = False
+  mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
 }
