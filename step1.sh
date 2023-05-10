@@ -18,5 +18,5 @@ srun -n 320 -c 2 dials.stills_process \
 output.output_dir=$OUTPUT_DIR \
 output.logging_dir=$OUTPUT_DIR/stdout \
 /global/cfs/cdirs/m3562/sf_bernina_data_p20231/assembled/$RUN_NUM/*.h5 \
-$MODULES/SPREAD/params_1.phil \
+$MODULES/SPREAD/${2} \
 mp.method=mpi dispatch.pre_import=True
