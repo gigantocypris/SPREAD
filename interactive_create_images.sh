@@ -28,8 +28,9 @@ noise=True
 psf=False
 attenuation=True
 context=kokkos_gpu
+crystal.structure=PSII
 beam {
-  mean_wavelength=7120.
+  mean_wavelength=6550.
 }
 detector {
   tiles=multipanel
