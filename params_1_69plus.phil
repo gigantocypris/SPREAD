@@ -5,7 +5,7 @@ dispatch {
   }
 }
 input {
-  reference_geometry = "/global/cfs/cdirs/m3562/users/vidyagan/p20231/metrology/Oct_31_22/refined_level2.expt"
+  reference_geometry = "/global/cfs/cdirs/m3562/users/brewster/fixup/fixed.expt"
 }
 spotfinder {
   lookup {
