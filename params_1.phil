@@ -5,11 +5,11 @@ dispatch {
   }
 }
 input {
-  reference_geometry = "/global/cfs/cdirs/m3562/users/brewster/fixup/fixed.expt"
+  reference_geometry = "/global/cfs/cdirs/m3562/users/dtchon/p20231/common/metrology1/refinement/level2/refined_level2.expt"
 }
 spotfinder {
   lookup {
-    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/until68.mask"
+    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
   }
   threshold {
     dispersion {
@@ -28,7 +28,7 @@ indexing {
 }
 integration {
   lookup {
-    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/until68.mask"
+    mask = "/global/cfs/cdirs/m3562/dwpaley/processing_files_2022/mask/69plus.mask"
   }
   summation {
     detector_gain = 26.2
