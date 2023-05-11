@@ -1,13 +1,13 @@
 # salloc -N 1 --time=60 -C gpu -A m3562_g --qos=interactive --ntasks-per-gpu=8 --cpus-per-task=2
 
-export SCRATCH_FOLDER=$SCRATCH/ferredoxin_sim/interactive
+export SCRATCH_FOLDER=$SCRATCH/psii_sim/interactive
 mkdir -p $SCRATCH_FOLDER; cd $SCRATCH_FOLDER
 
 export CCTBX_DEVICE_PER_NODE=1
 export N_START=0
 export LOG_BY_RANK=1 # Use Aaron's rank logger
 export RANK_PROFILE=0 # 0 or 1 Use cProfiler, default 1
-export N_SIM=10 # total number of images to simulate
+export N_SIM=2 # total number of images to simulate
 export ADD_BACKGROUND_ALGORITHM=cuda
 export DEVICES_PER_NODE=1
 export MOS_DOM=25

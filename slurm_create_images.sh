@@ -1,6 +1,6 @@
 #!/bin/bash -l
 #SBATCH -N 32             # Number of nodes
-#SBATCH -J ferredoxin_sim
+#SBATCH -J psii_sim
 #SBATCH -L SCRATCH       # job requires SCRATCH files
 #SBATCH -A m2859_g       # allocation
 #SBATCH -C gpu
@@ -11,7 +11,7 @@
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 
-export SCRATCH_FOLDER=$SCRATCH/ferredoxin_sim/$SLURM_JOB_ID
+export SCRATCH_FOLDER=$SCRATCH/psii_sim/$SLURM_JOB_ID
 mkdir -p $SCRATCH_FOLDER; cd $SCRATCH_FOLDER
 
 export CCTBX_DEVICE_PER_NODE=1
@@ -39,8 +39,9 @@ noise=True
 psf=False
 attenuation=True
 context=kokkos_gpu
+crystal.structure=PSII
 beam {
-  mean_wavelength=7120.
+  mean_wavelength=6550.
 }
 detector {
   tiles=multipanel
