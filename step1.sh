@@ -2,7 +2,7 @@
 #SBATCH --nodes 10
 #SBATCH -C gpu
 #SBATCH -q regular    # regular queue
-#SBATCH -t 00:10:00         # wall clock time limit
+#SBATCH -t 00:15:00         # wall clock time limit
 #SBATCH --job-name=step1
 #SBATCH -A m2859_g          # allocation
 
