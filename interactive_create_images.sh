@@ -3,7 +3,7 @@
 export SCRATCH_FOLDER=$SCRATCH/psii_sim/interactive
 mkdir -p $SCRATCH_FOLDER; cd $SCRATCH_FOLDER
 
-export MN_RESOLUTION=10
+export MN_RESOLUTION=4
 export MN_CHANNELS=20
 
 export CCTBX_DEVICE_PER_NODE=1
