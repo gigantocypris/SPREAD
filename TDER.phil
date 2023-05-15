@@ -1,0 +1,27 @@
+combine_experiments.clustering.use=False
+reintegration {
+  profile.gaussian_rs.centroid_definition=com
+  integration {
+    absorption_correction {
+      apply = True
+      algorithm = fuller_kapton *kapton_2019 other
+      fuller_kapton {
+        xtal_height_above_kapton_mm.value = 0.0170
+        xtal_height_above_kapton_mm.sigma = 0.0103
+        rotation_angle_deg.value = 44.36
+        rotation_angle_deg.sigma = 0.11
+        kapton_half_width_mm.value = 0.690
+        kapton_half_width_mm.sigma = 0.172
+        kapton_thickness_mm.value = 0.050
+        kapton_thickness_mm.sigma = 0.001
+        smart_sigmas = True
+      }
+    }
+    background.simple.outlier.plane.n_sigma = 10
+    debug {
+      delete_shoeboxes = False
+      output = True
+      separate_files = False
+    }
+    summation {
+      detector_gain = 26.2           }}}
