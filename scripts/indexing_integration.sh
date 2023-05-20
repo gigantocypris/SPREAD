@@ -15,6 +15,6 @@ cd $WORK
 mkdir -p dials_processing; cd dials_processing
 echo "jobstart $(date)";pwd
 
-srun -n 320 -c 4 dials.stills_process $MODULES/SPREAD/index1.phil input.glob=$SCRATCH/psii_sim/images/image_rank_*.h5
+srun -n 320 -c 4 dials.stills_process $MODULES/SPREAD/scripts/indexing_integration.phil input.glob=$SCRATCH/psii_sim/images/image_rank_*.h5
 
 echo "jobend $(date)";pwd
