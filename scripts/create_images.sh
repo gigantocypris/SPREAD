@@ -11,7 +11,7 @@
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 
-export SCRATCH_FOLDER=$SCRATCH/psii_sim/$SLURM_JOB_ID
+export SCRATCH_FOLDER=$SCRATCH/psii_sim/images
 mkdir -p $SCRATCH_FOLDER; cd $SCRATCH_FOLDER
 
 export MN_RESOLUTION=3.4

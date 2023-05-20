@@ -8,70 +8,86 @@
 
 ## Overview
 
-The Computational Crystallography Toolbox [cctbx]{.smallcaps} (\textsc{cctbx}) is open-source software that allows for processing of crystallographic data, including from serial femtosecond crystallography (SFX), for macromolecular structure determination. We aim to use the modules in \textsc{cctbx} to determine the oxidation state of individual metal atoms in a macromolecule. Changes in oxidation state are reflected in small shifts of the atom's X-ray absorption edge. These shifts can be extracted from the diffraction images recorded in serial femtosecond crystallography, given knowledge of the forward physics model. However, as the change in absorption edge is small, inaccuracies in the forward physics model obscure observation of the oxidation state. We describe the potential impact of using self-supervised deep learning to correct the scientific model in \textsc{cctbx} and provide uncertainty quantification. We provide code for forward model simulation and data analysis, built from \textsc{cctbx} modules, in this GitHub repository. Open questions in algorithm development are described to help spur advances through dialog between crystallographers and machine learning researchers. New methods could help elucidate charge transfer processes in many reactions, including key events in photosynthesis. 
+The [Computational Crystallography Toolbox](https://github.com/cctbx/cctbx_project) (`cctbx`) is open-source software that allows for processing of crystallographic data, including from serial femtosecond crystallography (SFX), for macromolecular structure determination. We aim to use the modules in `cctbx` to determine the oxidation state of individual metal atoms in a macromolecule. Changes in oxidation state are reflected in small shifts of the atom's X-ray absorption edge. These shifts can be extracted from the diffraction images recorded in serial femtosecond crystallography, given knowledge of the forward physics model. However, as the change in absorption edge is small, inaccuracies in the forward physics model obscure observation of the oxidation state. We describe the potential impact of using self-supervised deep learning to correct the scientific model in `cctbx` and provide uncertainty quantification. We provide code for forward model simulation and data analysis, built from `cctbx` modules, in this GitHub repository. Open questions in algorithm development are described to help spur advances through dialog between crystallographers and machine learning researchers. New methods could help elucidate charge transfer processes in many reactions, including key events in photosynthesis. 
 
-Please see our full paper HERE.
+Please see our full paper [here][PAPER.pdf].
 
 ## Table of Contents
 
-1. [NERSC Accounts](#Installation)
-2. [Synthetic Foam Dataset](#Foam)
-3. [Synthetic 3-Dimensional MNIST Dataset](#MNIST)
-4. [Experimental Dataset](#Experimental)
+1. [NERSC Accounts](#nersc)
+2. [Installation](#install)
+3. [Forward Model](#forward)
+4. [Conventional Processing](#processing)
+5. [Further Processing](#further)
+6. [Citation](#citation)
 
-## NERSC Accounts <a name="foam"></a>
+## NERSC Accounts <a name="nersc"></a>
 
 We highly recommend using the [National Energy Research Scientific Computing Center (NERSC)](https://www.nersc.gov) to run this code. The codes are optimized to run on [Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/). To run code on NERSC, you need a [user account](https://docs.nersc.gov/accounts/#obtaining-an-account) and an [allocation](https://www.nersc.gov/users/accounts/allocations/). New users can apply for an [Exploratory Allocation](https://www.nersc.gov/users/accounts/allocations/first-allocation/) of 100 GPU node hours (a GPU node on Perlmutter has 1 CPU + 4 GPUs).
 
-## Installation <a name="foam"></a>
+## Installation <a name="install"></a>
 
-To install required modules on Perlmutter, the NERSC supercomputer, please use these [instructions](INSTALL.md).
+To install required modules on Perlmutter please use these [instructions](INSTALL.md).
 
-## Forward Model <a name="foam"></a>
+## Forward Model <a name="forward"></a>
 
-In an SFX experiment, a microcrystal is imaged with an X-ray pulse. The crystal diffracts the X-ray radiation right before it is destroyed. The resulting diffraction image is known as a ``still shot.'' The known forward physics of an SFX experiment on photosystem II can be modeled, resulting in simulated diffraction images. To create a dataset of 100,000 still shots, run the following on Perlmutter:
+In an SFX experiment, a microcrystal is imaged with an X-ray pulse. The crystal diffracts the X-ray radiation right before it is destroyed. The resulting diffraction image is known as a ``still shot.'' The known forward physics of an SFX experiment on photosystem II can be modeled, resulting in simulated diffraction images. To create a dataset of 100,000 still shots, run the following on a Perlmutter terminal:
 
-> cd $WORK
-> mkdir output_spread
-> cd output_spread
-> sbatch $MODULES/SPREAD/forward_model/slurm_create_images_kokkos.sh
+```
+cd $WORK
+mkdir output_spread
+cd output_spread
+sbatch $MODULES/SPREAD/forward_model/slurm_create_images_kokkos.sh
+```
 
-After the job runs, the output log files can be viewed:
+The output is saved in the $SCRATCH directory, list the output files:
 
-> cat *.log
-> cat *.err
+```
+cd $SCRATCH/psii_sim/images
+ls
+```
 
-The output is saved in the $SCRATCH directory:
+Each *.h5 container stores multiple simulated images. To visualize a file:
 
-> cd $SCRATCH/psii_sim/images
-> ls
+```
+dials.image_viewer image_rank_00000.h5
+```
 
-example output...
+An example image:
 
-Each h5 container stores multiple simulated images. To visualize:
+<p align="center"><img src="images/example_image.png" width=500 /></p>
 
-> dials.image_viewer *.h5
+## Conventional Processing <a name="processing"></a>
 
-Example simulated image. 
+The [Diffraction Integration for Advanced Light Sources](https://github.com/dials/dials) (`dials`) processes crystallographic data to identify diffraction spots, determine orientation and unit cell, and determine structure factor amplitudes. For SFX processing, the software `dials` first performs indexing: the strong diffraction spots are identified to determine orientation (i.e. rotation) and unit cell. The next step is integration: the orientation is used to determine where a spot of a certain Miller index should be, and a shoebox is drawn over that spot, and the value of the spot is integrated. Both the shoebox pixel intensities and the integrated spot value can be used in further processing. To run indexing and integrating, run in a Perlmutter terminal: 
 
-Note that the script models a Jungfrau detector, which can be modeled hierarchically (label the hierarchy).
+```
+cd $WORK/output_spread
+sbatch indexing_integration.sh
+```
+
+Results are saved in $SCRATCH/psii_sim/dials_processing.
+To view the results of indexing:
+
+```
+```
+
+An example image from indexing; shoeboxes are drawn around the strong spots:
+
+<p align="center"><img src="images/example_image_indexed.png" width=500 /></p>
+
+To view the results of integration:
+
+```
+```
+
+An example image from integration; larger shoeboxes are drawn where spots should be:
+<p align="center"><img src="images/example_image_integration.png" width=500 /></p>
 
 
-## Conventional Processing <a name="foam"></a>
+## Further Processing <a name="further"></a>
 
-Indexing and integrating
-
-Example indexed results (indexing finds the strong spots to determine orientation and unit cell)
-
-example image
-
-Integration uses the orientation found by indexing to determine where spots should be and draws boxes there
-
-Example image
-
-## Further Processing <a name="foam"></a>
-
-By demonstrating the known forward physics and conventional methods of indexing and integration, we aim to spark discussion amongst machine learning researchers and crystallographers to create improved processing methods for SPREAD. We outline promising directions in our [paper](paper.pdf), please get in touch if you would like to discuss further!
+The diffraction spot shoeboxes generated by `dials` can be used in further machine learning pipelines. By demonstrating the known forward physics and conventional methods of indexing and integration, we aim to spark discussion amongst machine learning researchers and crystallographers to create improved processing methods for SPREAD. We outline promising directions in our [paper](paper.pdf), please get in touch if you would like to discuss further!
 
 ## Citation <a name="citation"></a>
 
