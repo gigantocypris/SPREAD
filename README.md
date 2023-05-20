@@ -10,7 +10,7 @@
 
 The [Computational Crystallography Toolbox](https://github.com/cctbx/cctbx_project) (`cctbx`) is open-source software that allows for processing of crystallographic data, including from serial femtosecond crystallography (SFX), for macromolecular structure determination. We aim to use the modules in `cctbx` to determine the oxidation state of individual metal atoms in a macromolecule. Changes in oxidation state are reflected in small shifts of the atom's X-ray absorption edge. These shifts can be extracted from the diffraction images recorded in serial femtosecond crystallography, given knowledge of the forward physics model. However, as the change in absorption edge is small, inaccuracies in the forward physics model obscure observation of the oxidation state. We describe the potential impact of using self-supervised deep learning to correct the scientific model in `cctbx` and provide uncertainty quantification. We provide code for forward model simulation and data analysis, built from `cctbx` modules, in this GitHub repository. Open questions in algorithm development are described to help spur advances through dialog between crystallographers and machine learning researchers. New methods could help elucidate charge transfer processes in many reactions, including key events in photosynthesis. 
 
-Please see our full paper [here][PAPER.pdf].
+Please see our full paper [here](PAPER.pdf).
 
 ## Table of Contents
 
