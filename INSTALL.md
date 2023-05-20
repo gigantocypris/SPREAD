@@ -4,15 +4,13 @@ Serial femtosecond crystallography (SFX) for spatially resolved anomalous disper
 
 ## Installation
 
-nersc_username
-nersc_gpu_allocation
-
-
-change cfs dir: m3562
+NERSC_USERNAME
+NERSC_GPU_ALLOCATION
+CFS_ALLOCATION: m3562
 
 Setup instructions on Perlmutter:
 
-> export CFSW=$CFS/m3562/users/nersc_username
+> export CFSW=$CFS/CFS_ALLOCATION/users/nersc_username
 > mkdir $CFSW
 > export CFSSRC=$CFSW/p20231 
 > mkdir $CFSSRC
@@ -30,7 +28,7 @@ Ignore returned errors.
 
 > pwd
 
-/global/cfs/cdirs/m3562/users/vidyagan/p20231/alcc-recipes/cctbx
+/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes/cctbx
 
 > rm opt/mamba/envs/psana_env/lib/libssh.so.4
 > module load evp-patch
@@ -52,7 +50,7 @@ Test kokkos with the following (it works if you don't get an error):
 
 Copy the following into the file:
 
-export CFSW=$CFS/m3562/users/nersc_username
+export CFSW=$CFS/$CFS_ALLOCATION/users/nersc_username
 export CFSSRC=$CFSW/p20231 # software install
 export WORK=$CFSW/p20231/
 cd $WORK/
@@ -75,7 +73,7 @@ export BUILD=$CFSSRC/alcc-recipes/cctbx/build
 
 Copy the following into the file:
 
-export ALCC_CCTBX_ROOT=/global/cfs/cdirs/m3562/users/nersc_username/p20231/alcc-recipes/cctbx
+export ALCC_CCTBX_ROOT=/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes/cctbx
 source ${ALCC_CCTBX_ROOT}/utilities.sh
 source ${ALCC_CCTBX_ROOT}/opt/site/nersc_perlmutter.sh
 load-sysenv
@@ -97,12 +95,12 @@ export SIT_ROOT=/reg/g/psdm
 
 
 Test GPU usage:
-> libtbx.python "/global/cfs/cdirs/m3562/users/vidyagan/p20231/alcc-recipes/cctbx/modules/cctbx_project/simtbx/gpu/tst_shoeboxes.py" context=kokkos_gpu
+> libtbx.python "/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes/cctbx/modules/cctbx_project/simtbx/gpu/tst_shoeboxes.py" context=kokkos_gpu
 
 At the same time in another window logged into the interactive session, do:
 > watch -n 0.1 nvidia-smi
 
-Watch the GPU usage to check that it increases. Printout of the code should be something like:
+Watch the GPU usage to check that it increases. Printout of the code should look like this:
 ##############################
 OK
 The following parameters have been modified:
@@ -134,7 +132,7 @@ OK
 > conda install -c conda-forge nxmx
 > conda install -c conda-forge distro
 > conda install pytorch==1.13.1 torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
-> git clone https://github.com/nksauter/LS49
+> git clone https://github.com/vganapati/LS49
 > git clone https://gitlab.com/cctbx/ls49_big_data
 > git clone https://gitlab.com/cctbx/uc_metrics
 > git clone https://github.com/lanl/lunus            
@@ -142,6 +140,7 @@ OK
 > git clone https://gitlab.com/cctbx/psii_spread.git    
 > git clone https://gitlab.com/cctbx/xfel_regression.git
 > git clone https://github.com/ExaFEL/exafel_project.git
+> git clone https://github.com/gigantocypris/SPREAD.git
 > libtbx.configure LS49 ls49_big_data uc_metrics lunus sim_erice xfel_regression
 > libtbx.refresh
 > cd $BUILD
@@ -157,10 +156,17 @@ At the same time in another window logged into the interactive session, do:
 Watch the GPU usage to check that it increases.
 
 ##############################
-Write down specific branches to check out from the git modules
+Check out the following branches:
+
+ExaFEL
+cd $MODULES/cctbx_project --> nxmx_writer
+cd $MODULES/dxtbx --> nxmx_writer
+cd $MODULES/exafel_project --> experimental_rollback
+
+
 ##############################
 
-Start up:
+Enter the following commands to start up from a new Perlmutter terminal:
 source ~/env_spread
 cd $MODULES
 cd ../
