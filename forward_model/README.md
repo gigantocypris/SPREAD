@@ -1,7 +1,0 @@
-# Image Simulation
-
-## Instructions
-
-
-
-
