@@ -1,4 +1,4 @@
-export SCRATCH_FOLDER=$SCRATCH/psii_sim/interactive_1
+export SCRATCH_FOLDER=$SCRATCH/psii_sim/interactive
 mkdir -p $SCRATCH_FOLDER; cd $SCRATCH_FOLDER
 
 export MN_RESOLUTION=10
