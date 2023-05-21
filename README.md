@@ -67,22 +67,26 @@ sbatch $MODULES/SPREAD/scripts/indexing_integration.sh
 ```
 
 Results are saved in $SCRATCH/psii_sim/dials_processing.
-To view the results of indexing:
+To view the results of indexing on an example still shot:
 
 ```
+cd $SCRATCH/psii_sim/dials_processing
+dials.image_viewer idx-0001_indexed.refl idx-0001_refined.expt
 ```
 
 An example image from indexing; shoeboxes are drawn around the strong spots:
 
-<p align="center"><img src="images/example_image_indexed.png" width=500 /></p>
+<p align="center"><img src="images/example_indexing.png" width=500 /></p>
 
 To view the results of integration:
 
 ```
+cd $SCRATCH/psii_sim/dials_processing
+dials.image_viewer idx-0001_integrated.*
 ```
 
 An example image from integration; larger shoeboxes are drawn where spots should be:
-<p align="center"><img src="images/example_image_integration.png" width=500 /></p>
+<p align="center"><img src="images/example_integration.png" width=500 /></p>
 
 
 ## Further Processing <a name="further"></a>

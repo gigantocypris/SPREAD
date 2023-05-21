@@ -1,8 +1,8 @@
-# SPREAD
-Serial femtosecond crystallography (SFX) for spatially resolved anomalous dispersion (SPREAD).
+# Installation Instructions
 
+Installation instructions are given for [Perlmutter](https://docs.nersc.gov/systems/perlmutter/architecture/). Please see the [homepage](README.md) for instructions on how to obtain a computing account.
 
-## Installation
+Open a terminal on Perlmutter and set the following environment variables:
 
 NERSC_USERNAME
 NERSC_GPU_ALLOCATION
