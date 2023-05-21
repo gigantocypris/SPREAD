@@ -40,14 +40,14 @@ cd output_spread
 sbatch $MODULES/SPREAD/scripts/create_images.sh
 ```
 
-The output is saved in the $SCRATCH directory, to list the output files:
+The output is saved in the `$SCRATCH` directory, to list the output files:
 
 ```
 cd $SCRATCH/psii_sim/images
 ls
 ```
 
-Each *.h5 container stores multiple simulated images. To visualize a file:
+Each `*.h5` container stores multiple simulated images. To visualize a file:
 
 ```
 dials.image_viewer image_rank_00000.h5
@@ -56,6 +56,14 @@ dials.image_viewer image_rank_00000.h5
 An example image:
 
 <p align="center"><img src="images/example_image.png" width=500 /></p>
+
+A single still shot with low resolution can be created in an interactive session to test functionality:
+```
+cd $WORK/output_spread
+salloc -N 1 --time=60 -C gpu -A $NERSC_ALLOCATION --qos=interactive --ntasks-per-gpu=8 --cpus-per-task=2
+. $MODULES/SPREAD/scripts/interactive_create_image.sh
+```
+The resulting `*.h5` file is saved in `$SCRATCH/psii_sim/interactive` and can be visualized as above with `dials.image_viewer`.
 
 ## Conventional Processing <a name="processing"></a>
 
