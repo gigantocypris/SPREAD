@@ -199,6 +199,8 @@ git checkout experimental
 
 Installation is complete! When starting up from a new Perlmutter terminal, run the following commands:
 ```
+export NERSC_USERNAME=your_username
+export CFS_ALLOCATION=your_cfs_allocation
 source ~/env_spread
 cd $MODULES
 cd ../
