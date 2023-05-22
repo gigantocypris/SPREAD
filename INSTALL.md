@@ -27,15 +27,15 @@ module load PrgEnv-gnu cpe-cuda cudatoolkit
 
 Clone a repository containing installation scripts and run setup script:
 ```
-git clone https://github.com/JBlaschke/alcc-recipes.git alcc-recipes
-cd alcc-recipes/cctbx
+git clone https://github.com/JBlaschke/alcc-recipes.git alcc-recipes-spread
+cd alcc-recipes-spread/cctbx
 ./setup_perlmutter.sh 
 ```
 Ignore returned errors.
 
 Build `cctbx`:
 ```
-cd $CFSSRC/alcc-recipes/cctbx
+cd $CFSSRC/alcc-recipes-spread/cctbx
 rm opt/mamba/envs/psana_env/lib/libssh.so.4
 module load evp-patch
 source utilities.sh
@@ -68,12 +68,12 @@ cd $WORK/
 module purge
 module load PrgEnv-gnu cpe-cuda cudatoolkit
 module load evp-patch # known issue workaround
-source $CFSSRC/alcc-recipes/cctbx/utilities.sh
-source $CFSSRC/alcc-recipes/cctbx/opt/site/nersc_perlmutter.sh
+source $CFSSRC/alcc-recipes-spread/cctbx/utilities.sh
+source $CFSSRC/alcc-recipes-spread/cctbx/opt/site/nersc_perlmutter.sh
 load-sysenv
 activate
-export MODULES=$CFSSRC/alcc-recipes/cctbx/modules
-export BUILD=$CFSSRC/alcc-recipes/cctbx/build
+export MODULES=$CFSSRC/alcc-recipes-spread/cctbx/modules
+export BUILD=$CFSSRC/alcc-recipes-spread/cctbx/build
 ```
 
 Save and exit: 
@@ -84,7 +84,7 @@ Save and exit:
 Source your environment:
 ```
 > source ~/env_spread
-> cd $CFSSRC/alcc-recipes/cctbx
+> cd $CFSSRC/alcc-recipes-spread/cctbx
 ```
 
 Create the file `activate.sh:`
@@ -94,7 +94,7 @@ Create the file `activate.sh:`
 
 Copy the following into the file:
 ```
-export ALCC_CCTBX_ROOT=/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes/cctbx
+export ALCC_CCTBX_ROOT=/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes-spread/cctbx
 source ${ALCC_CCTBX_ROOT}/utilities.sh
 source ${ALCC_CCTBX_ROOT}/opt/site/nersc_perlmutter.sh
 load-sysenv
@@ -124,7 +124,7 @@ mk-cctbx cuda build
 
 Test GPU usage:
 ```
-libtbx.python "/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes/cctbx/modules/cctbx_project/simtbx/gpu/tst_shoeboxes.py" context=kokkos_gpu
+libtbx.python "/global/cfs/cdirs/$CFS_ALLOCATION/users/$NERSC_USERNAME/p20231/alcc-recipes-spread/cctbx/modules/cctbx_project/simtbx/gpu/tst_shoeboxes.py" context=kokkos_gpu
 ```
 
 At the same time in another window logged into the interactive session run:
@@ -176,10 +176,6 @@ git clone https://gitlab.com/cctbx/psii_spread.git
 git clone https://gitlab.com/cctbx/xfel_regression.git
 git clone https://github.com/ExaFEL/exafel_project.git
 git clone https://github.com/gigantocypris/SPREAD.git
-libtbx.configure LS49 ls49_big_data uc_metrics lunus sim_erice xfel_regression
-libtbx.refresh
-cd $BUILD
-mk-cctbx cuda build
 ```
 
 Check out the following branches:
@@ -195,7 +191,21 @@ git checkout syns-ml
 
 cd $MODULES/LS49
 git checkout experimental
+
+cd $MODULES/dials
+git checkout dsp_image_mode
 ```
+
+Configure the modules:
+```
+cd $MODULES
+libtbx.configure LS49 ls49_big_data uc_metrics lunus sim_erice xfel_regression
+libtbx.refresh
+cd $BUILD
+mk-cctbx cuda build
+```
+
+
 
 Installation is complete! When starting up from a new Perlmutter terminal, run the following commands:
 ```
