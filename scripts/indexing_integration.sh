@@ -5,14 +5,12 @@
 #SBATCH -A lcls_g          # allocation
 #SBATCH -C gpu
 #SBATCH -q regular    # regular queue
-#SBATCH -t 00:10:00         # wall clock time limit
+#SBATCH -t 00:40:00         # wall clock time limit
 #SBATCH -o job%j.out
 #SBATCH -e job%j.err
 
-export IMAGE_PATH=$SCRATCH/psii_sim/9287749/image_rank_*.h5
-export OUTPUT_FOLDER=dials_processing_test
-# export IMAGE_PATH=$SCRATCH/psii_sim/images/image_rank_*.h5
-# export OUTPUT_FOLDER=dials_processing
+export IMAGE_PATH=$SCRATCH/psii_sim/images/image_rank_*.h5
+export OUTPUT_FOLDER=dials_processing
 export WORK=$SCRATCH/psii_sim
 cd $WORK
 
