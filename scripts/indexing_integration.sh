@@ -3,7 +3,7 @@
 #SBATCH -J stills_proc
 #SBATCH -L SCRATCH          # job requires SCRATCH files
 #SBATCH -A m2859_g          # allocation
-#SBATCH -C cpu
+#SBATCH -C gpu
 #SBATCH -q regular    # regular queue
 #SBATCH -t 00:30:00         # wall clock time limit
 #SBATCH -o job%j.out
