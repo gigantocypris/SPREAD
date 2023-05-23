@@ -2,11 +2,17 @@
 #SBATCH -N 8                # Number of nodes
 #SBATCH -J stills_proc
 #SBATCH -L SCRATCH          # job requires SCRATCH files
-#SBATCH -C gpu
+#SBATCH -C cpu
 #SBATCH -q regular    # regular queue
 #SBATCH -t 01:30:00         # wall clock time limit
 #SBATCH -o job%j.out
 #SBATCH -e job%j.err
+
+export NUMEXPR_MAX_THREADS=128
+export SLURM_CPU_BIND=cores # critical to force ranks onto different cores. verify with ps -o psr <pid>
+export OMP_PROC_BIND=spread
+export OMP_PLACES=threads
+export XFEL_CUSTOM_WORKER_PATH=$MODULES/psii_spread/merging/application # User must export $MODULES path
 
 export IMAGE_PATH=$SCRATCH/psii_sim/images/image_rank_*.h5
 export OUTPUT_FOLDER=dials_processing
@@ -16,6 +22,10 @@ cd $WORK
 mkdir -p $OUTPUT_FOLDER; cd $OUTPUT_FOLDER
 
 echo "
+output {
+  composite_output = False
+  logging_dir=. # demangle by rank
+}
 input {
   reference_geometry = $MODULES/exafel_project/kpp-sim/t000_rg002_chunk000_reintegrated_000000.expt
 }
@@ -44,7 +54,8 @@ spotfinder {
       kernel_size=6 6
     }
   }
-  filter.d_min=1.9
+  filter.min_spot_size=3
+  filter.d_min=3.4
 }
 indexing {
   stills.refine_candidates_with_known_symmetry=True
@@ -53,7 +64,7 @@ indexing {
     unit_cell = 117.585 223.068 309.977 90 90 90
   }
   refinement_protocol {
-    d_min_start = 3.0
+    d_min_start = 3.4
   }
 }
 integration {
@@ -68,13 +79,11 @@ integration {
   }
 }
 profile.gaussian_rs.centroid_definition=com
-mp.method = mpi
-output.logging_dir=. # demangle by rank
 " > trial.phil
 
 
 echo "jobstart $(date)";pwd
 
-srun -n 256 -c 4 dials.stills_process trial.phil input.glob=$IMAGE_PATH
+srun -n 256 -c 8 dials.stills_process trial.phil input.glob=$IMAGE_PATH
 
 echo "jobend $(date)";pwd
