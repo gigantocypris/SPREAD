@@ -2,8 +2,8 @@
 #SBATCH -N 10                # Number of nodes
 #SBATCH -J stills_proc
 #SBATCH -L SCRATCH          # job requires SCRATCH files
-#SBATCH -A lcls_g          # allocation
-#SBATCH -C gpu
+#SBATCH -A $NERSC_CPU_ALLOCATION          # allocation
+#SBATCH -C cpu
 #SBATCH -q regular    # regular queue
 #SBATCH -t 02:30:00         # wall clock time limit
 #SBATCH -o job%j.out
@@ -77,6 +77,6 @@ output.logging_dir=. # demangle by rank
 
 echo "jobstart $(date)";pwd
 
-srun -n 320 -c 4 dials.stills_process trial.phil input.glob=$IMAGE_PATH
+srun -n 320 -c 8 dials.stills_process trial.phil input.glob=$IMAGE_PATH
 
 echo "jobend $(date)";pwd
