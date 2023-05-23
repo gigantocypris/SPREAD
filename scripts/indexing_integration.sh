@@ -5,10 +5,12 @@
 #SBATCH -A lcls_g          # allocation
 #SBATCH -C gpu
 #SBATCH -q regular    # regular queue
-#SBATCH -t 01:00:00         # wall clock time limit
+#SBATCH -t 00:10:00         # wall clock time limit
 #SBATCH -o job%j.out
 #SBATCH -e job%j.err
 
+export IMAGE_PATH=$SCRATCH/psii_sim/9287749/image_rank_*.h5
+# export IMAGE_PATH=$SCRATCH/psii_sim/images/image_rank_*.h5
 export WORK=$SCRATCH/psii_sim
 cd $WORK
 
@@ -75,6 +77,6 @@ output.logging_dir=. # demangle by rank
 
 echo "jobstart $(date)";pwd
 
-srun -n 320 -c 4 dials.stills_process $MODULES/SPREAD/scripts/indexing_integration.phil input.glob=$SCRATCH/psii_sim/images/image_rank_*.h5
+srun -n 320 -c 4 dials.stills_process $MODULES/SPREAD/scripts/indexing_integration.phil input.glob=$IMAGE_PATH
 
 echo "jobend $(date)";pwd
