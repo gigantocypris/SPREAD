@@ -2,7 +2,7 @@
 #SBATCH -N 10                # Number of nodes
 #SBATCH -J stills_proc
 #SBATCH -L SCRATCH          # job requires SCRATCH files
-#SBATCH -A $NERSC_CPU_ALLOCATION          # allocation
+#SBATCH -A m2859          # allocation
 #SBATCH -C cpu
 #SBATCH -q regular    # regular queue
 #SBATCH -t 02:30:00         # wall clock time limit
