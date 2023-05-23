@@ -79,6 +79,6 @@ output.logging_dir=. # demangle by rank
 
 echo "jobstart $(date)";pwd
 
-srun -n 320 -c 4 dials.stills_process $MODULES/SPREAD/scripts/indexing_integration.phil input.glob=$IMAGE_PATH
+srun -n 320 -c 4 dials.stills_process trial.phil input.glob=$IMAGE_PATH
 
 echo "jobend $(date)";pwd
