@@ -5,7 +5,7 @@
 #SBATCH -A lcls_g          # allocation
 #SBATCH -C gpu
 #SBATCH -q regular    # regular queue
-#SBATCH -t 01:00:00         # wall clock time limit
+#SBATCH -t 00:10:00         # wall clock time limit
 #SBATCH -o job%j.out
 #SBATCH -e job%j.err
 
