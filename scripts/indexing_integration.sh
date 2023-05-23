@@ -10,11 +10,13 @@
 #SBATCH -e job%j.err
 
 export IMAGE_PATH=$SCRATCH/psii_sim/9287749/image_rank_*.h5
+export OUTPUT_FOLDER=dials_processing_test
 # export IMAGE_PATH=$SCRATCH/psii_sim/images/image_rank_*.h5
+# export OUTPUT_FOLDER=dials_processing
 export WORK=$SCRATCH/psii_sim
 cd $WORK
 
-mkdir -p dials_processing; cd dials_processing
+mkdir -p $OUTPUT_FOLDER; cd $OUTPUT_FOLDER
 
 echo "
 input {
