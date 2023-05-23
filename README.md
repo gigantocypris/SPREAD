@@ -72,7 +72,7 @@ The [Diffraction Integration for Advanced Light Sources](https://github.com/dial
 
 ```
 cd $WORK/output_spread
-sbatch -A $NERSC_GPU_ALLOCATION $MODULES/SPREAD/scripts/indexing_integration.sh
+sbatch -A $NERSC_CPU_ALLOCATION $MODULES/SPREAD/scripts/indexing_integration.sh
 ```
 
 Results are saved in $SCRATCH/psii_sim/dials_processing.

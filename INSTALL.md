@@ -5,7 +5,8 @@ Installation instructions are given for [Perlmutter](https://docs.nersc.gov/syst
 Open a terminal on Perlmutter and set the following environment variables:
 ```
 export NERSC_USERNAME=your_username
-export NERSC_GPU_ALLOCATION=your_nersc_allocation
+export NERSC_GPU_ALLOCATION=your_nersc_gpu_allocation
+export NERSC_CPU_ALLOCATION=your_nersc_cpu_allocation
 export CFS_ALLOCATION=your_cfs_allocation
 ```
 
@@ -207,7 +208,8 @@ mk-cctbx cuda build
 Installation is complete! When starting up from a new Perlmutter terminal, run the following commands:
 ```
 export NERSC_USERNAME=your_username
-export NERSC_GPU_ALLOCATION=your_nersc_allocation
+export NERSC_GPU_ALLOCATION=your_nersc_gpu_allocation
+export NERSC_CPU_ALLOCATION=your_nersc_cpu_allocation
 export CFS_ALLOCATION=your_cfs_allocation
 source ~/env_spread
 cd $MODULES
