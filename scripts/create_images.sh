@@ -1,21 +1,16 @@
 #!/bin/bash -l
 #SBATCH -N 32             # Number of nodes
-#SBATCH -J psii_sim
+#SBATCH -J spread
 #SBATCH -L SCRATCH       # job requires SCRATCH files
-#SBATCH -A m2859_g       # allocation
 #SBATCH -C gpu
 #SBATCH -q regular # regular or special queue
-#SBATCH -t 04:00:00      # wall clock time limit
+#SBATCH -t 01:30:00      # wall clock time limit
 #SBATCH --gpus-per-node 4
-#SBATCH --ntasks-per-gpu 8
 #SBATCH -o %j.out
 #SBATCH -e %j.err
 
-export SCRATCH_FOLDER=$SCRATCH/psii_sim/images
+export SCRATCH_FOLDER=$SCRATCH/psii_sim/$SLURM_JOB_ID
 mkdir -p $SCRATCH_FOLDER; cd $SCRATCH_FOLDER
-
-export MN_RESOLUTION=3.4
-export MN_CHANNELS=101
 
 export CCTBX_DEVICE_PER_NODE=1
 export N_START=0
@@ -23,12 +18,11 @@ export LOG_BY_RANK=1 # Use Aaron's rank logger
 export RANK_PROFILE=0 # 0 or 1 Use cProfiler, default 1
 export N_SIM=100000 # total number of images to simulate
 export ADD_BACKGROUND_ALGORITHM=cuda
-export DEVICES_PER_NODE=1
+export DEVICES_PER_NODE=4
 export MOS_DOM=25
 
 export CCTBX_NO_UUID=1
-export DIFFBRAGG_USE_CUDA=1
-# export DIFFBRAGG_USE_KOKKOS=1
+export DIFFBRAGG_USE_KOKKOS=1
 export CUDA_LAUNCH_BLOCKING=1
 export NUMEXPR_MAX_THREADS=128
 export SLURM_CPU_BIND=cores # critical to force ranks onto different cores. verify with ps -o psr <pid>
@@ -43,9 +37,17 @@ noise=True
 psf=False
 attenuation=True
 context=kokkos_gpu
-crystal.structure=PSII
+absorption=spread
+res_limit=3.4
+crystal {
+      structure=PSII
+}
 beam {
-  mean_wavelength=6550.
+  mean_energy=6550.
+}
+spectrum {
+  nchannels=100
+  channel_width=1.0
 }
 detector {
   tiles=multipanel
@@ -57,5 +59,5 @@ output {
 " > trial.phil
 
 echo "jobstart $(date)";pwd
-srun -n 1024 -c 2 -G 128 libtbx.python $MODULES/exafel_project/kpp_utils/LY99_batch.py trial.phil
+srun -n 1024 -c 4 libtbx.python $MODULES/exafel_project/kpp_utils/LY99_batch.py trial.phil
 echo "jobend $(date)";pwd

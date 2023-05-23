@@ -186,9 +186,6 @@ git checkout nxmx_writer
 cd $MODULES/dxtbx
 git checkout nxmx_writer
 
-cd $MODULES/exafel_project
-git checkout syns-ml
-
 cd $MODULES/LS49
 git checkout experimental
 

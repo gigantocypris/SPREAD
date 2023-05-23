@@ -37,7 +37,7 @@ In an SFX experiment, a microcrystal is imaged with an X-ray pulse. The crystal 
 cd $WORK
 mkdir output_spread
 cd output_spread
-sbatch $MODULES/SPREAD/scripts/create_images.sh
+sbatch -A $NERSC_GPU_ALLOCATION $MODULES/SPREAD/scripts/create_images.sh
 ```
 
 The output is saved in the `$SCRATCH` directory, to list the output files:
@@ -71,7 +71,7 @@ The [Diffraction Integration for Advanced Light Sources](https://github.com/dial
 
 ```
 cd $WORK/output_spread
-sbatch $MODULES/SPREAD/scripts/indexing_integration.sh
+sbatch -A $NERSC_GPU_ALLOCATION $MODULES/SPREAD/scripts/indexing_integration.sh
 ```
 
 Results are saved in $SCRATCH/psii_sim/dials_processing.
