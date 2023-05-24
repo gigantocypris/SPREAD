@@ -80,7 +80,7 @@ To view the results of indexing on an example still shot:
 
 ```
 cd $SCRATCH/psii_sim/dials_processing
-dials.image_viewer idx-0001_indexed.refl idx-0001_refined.expt
+dials.image_viewer idx-image_rank_00000_00000_indexed.refl idx-image_rank_00000_00000_refined.expt
 ```
 
 An example image from indexing; shoeboxes are drawn around the strong spots:
@@ -91,7 +91,7 @@ To view the results of integration:
 
 ```
 cd $SCRATCH/psii_sim/dials_processing
-dials.image_viewer idx-0001_integrated.*
+dials.image_viewer idx-image_rank_00000_00000_integrated.*
 ```
 
 An example image from integration; larger shoeboxes are drawn where spots should be:
