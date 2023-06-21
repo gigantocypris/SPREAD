@@ -21,7 +21,7 @@ cd $CFSSRC
 
 Start an interactive session on NERSC:
 ```
-salloc -N 1 --time=120 -C gpu -A $NERSC_GPU_ALLOCATION --qos=interactive --ntasks-per-gpu=1
+salloc -N 1 --time=120 -C gpu -A $NERSC_GPU_ALLOCATION --qos=interactive --gpus-per-task=1
 module purge
 module load PrgEnv-gnu cpe-cuda cudatoolkit
 ```
