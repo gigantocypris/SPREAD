@@ -19,7 +19,7 @@ mkdir $CFSSRC
 cd $CFSSRC
 ```
 
-Start an interactive session on NERSC:
+Start an interactive session on NERSC:  
 Note: may have to run `source /opt/cray/pe/cpe/23.03/restore_lmod_system_defaults.sh` before running `module purge`
 ```
 salloc -N 1 --time=120 -C gpu -A $NERSC_GPU_ALLOCATION --qos=interactive --gpus-per-task=1
