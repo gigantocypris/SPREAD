@@ -203,7 +203,12 @@ cd $BUILD
 mk-cctbx cuda build
 ```
 
-
+The modules must be configured again after building:
+```
+cd $MODULES
+libtbx.configure LS49 ls49_big_data uc_metrics lunus sim_erice xfel_regression
+libtbx.refresh
+```
 
 Installation is complete! When starting up from a new Perlmutter terminal, run the following commands:
 ```
